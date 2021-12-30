@@ -3,6 +3,8 @@ const core = require('@actions/core')
 const { exec } = require('@actions/exec')
 const { resolve, join, sep } = require('path')
 const { readFileSync } = require('fs')
+const { markdownTable } = require('markdown-table')
+const { createCoverageMap } = require('istanbul-lib-coverage')
 
 async function run () {
   // Check Token
@@ -18,7 +20,7 @@ async function run () {
   const resultsFile = join(workingDirectory, ('jest.results.json'))
 
   await runJest(getJestCommand(resultsFile), workingDirectory)
-  const results = JSON.stringify(await parseResultsFile(resultsFile))
+  const results = getCoverageTable(await parseResultsFile(resultsFile), workingDirectory)
 
   const { context } = github
   await writeComment(context.payload.repository.full_name, context.payload.head_commit.id, results)
@@ -68,4 +70,32 @@ function parseResultsFile (resultsFile) {
   return results
 }
 
+export function getCoverageTable (
+  results,
+  workingDirectory
+) {
+  if (!results.coverageMap) {
+    return ''
+  }
+  const covMap = createCoverageMap((results.coverageMap))
+  const rows = [['Filename', 'Statements', 'Branches', 'Functions', 'Lines']]
+
+  if (!Object.keys(covMap.data).length) {
+    console.error('No entries found in coverage data')
+    return false
+  }
+
+  for (const [filename, data] of Object.entries(covMap.data || {})) {
+    const { data: summary } = data.toSummary()
+    rows.push([
+      filename.replace(workingDirectory, ''),
+      summary.statements.pct + '%',
+      summary.branches.pct + '%',
+      summary.functions.pct + '%',
+      summary.lines.pct + '%'
+    ])
+  }
+
+  return markdownTable(rows, { align: ['l', 'r', 'r', 'r', 'r'] })
+}
 run()

@@ -22,6 +22,8 @@
     "jest": "^27.4.5"
   },
   "dependencies": {
-    "@actions/exec": "^1.1.0"
+    "@actions/exec": "^1.1.0",
+    "istanbul-lib-coverage": "^3.2.0",
+    "markdown-table": "^3.0.2"
   }
 }
