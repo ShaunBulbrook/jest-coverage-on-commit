@@ -18,10 +18,10 @@ async function run () {
   const resultsFile = join(workingDirectory, ('jest.results.json'))
 
   await runJest(getJestCommand(resultsFile), workingDirectory)
-  await parseResultsFile(resultsFile)
+  const results = JSON.stringify(await parseResultsFile(resultsFile))
 
   const { context } = github
-  await writeComment(context.payload.repository.full_name, context.payload.head_commit.id, 'hello world')
+  await writeComment(context.payload.repository.full_name, context.payload.head_commit.id, results)
 }
 
 /**
