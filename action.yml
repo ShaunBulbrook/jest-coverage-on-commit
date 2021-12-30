@@ -1,0 +1,12 @@
+name: 'Jest coverage on commit'
+description: 'Runs a test and comments the coverage report to the commit. (Works for multiple test runs in mono repos!)'
+author: 'Shaun Bulbrook'
+
+inputs:
+  GITHUB_TOKEN:
+    description: 'GitHub token'
+    required: true
+
+runs:
+  using: 'node16'
+  main: 'dist/index.js'

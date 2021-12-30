@@ -1,0 +1,15 @@
+{
+  "name": "jest-coverage-on-commit",
+  "version": "1.0.0",
+  "description": "Github action. - Runs a test and comments the coverage report on the commit.",
+  "main": "index.js",
+  "scripts": {
+    "build": "ncc build src/action.js -o dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Shaun Bulbrook",
+  "license": "ISC",
+  "devDependencies": {
+    "@vercel/ncc": "^0.33.1"
+  }
+}
