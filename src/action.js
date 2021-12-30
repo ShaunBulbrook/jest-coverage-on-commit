@@ -56,6 +56,7 @@ async function runJest (cmd, cwd) {
     console.debug('Jest command executed')
   } catch (e) {
     console.error('Tests have likely failed.', e)
+    throw new Error('Operation Failed')
   }
 }
 
