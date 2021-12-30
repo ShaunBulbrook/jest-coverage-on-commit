@@ -10,3 +10,5 @@ jobs:
       - run: npx yarn
       - run: npx yarn run build
       - uses: ./
+        with:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
