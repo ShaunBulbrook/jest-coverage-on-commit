@@ -2,6 +2,7 @@ const github = require('@actions/github')
 const core = require('@actions/core')
 const { exec } = require('@actions/exec')
 const { resolve, join, sep } = require('path')
+const { readFileSync } = require('fs')
 
 async function run () {
   // Check Token
@@ -17,6 +18,7 @@ async function run () {
   const resultsFile = join(workingDirectory, ('jest.results.json'))
 
   await runJest(getJestCommand(resultsFile), workingDirectory)
+  await parseResultsFile(resultsFile)
 
   const { context } = github
   await writeComment(context.payload.repository.full_name, context.payload.head_commit.id, 'hello world')
@@ -58,6 +60,12 @@ async function runJest (cmd, cwd) {
     console.error('Tests have likely failed.', e)
     throw new Error('Operation Failed')
   }
+}
+
+function parseResultsFile (resultsFile) {
+  const results = JSON.parse(readFileSync(resultsFile, 'utf-8'))
+  console.debug('Jest results: %j', results)
+  return results
 }
 
 run()
