@@ -1,6 +1,6 @@
 {
   "name": "jest-coverage-on-commit",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Github action. - Runs a test and comments the coverage report on the commit.",
   "main": "index.js",
   "scripts": {
