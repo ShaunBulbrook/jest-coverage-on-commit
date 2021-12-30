@@ -14,6 +14,14 @@
     "@actions/core": "^1.6.0",
     "@actions/github": "^5.0.0",
     "@vercel/ncc": "^0.33.1",
+    "eslint": "^7.32.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.2.0",
     "jest": "^27.4.5"
+  },
+  "dependencies": {
+    "@actions/exec": "^1.1.0"
   }
 }

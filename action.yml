@@ -6,6 +6,12 @@ inputs:
   GITHUB_TOKEN:
     description: 'GitHub token'
     required: true
+  working-directory:
+    description: "directory where the test command should be run from"
+    required: true
+  test-command:
+    description: "The command used to invoke jest"
+    required: true
 
 runs:
   using: 'node16'
