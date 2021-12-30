@@ -6,6 +6,7 @@ async function run() {
 	const octokit = github.getOctokit(GITHUB_TOKEN);
 	const {context = {}} = github;
   console.log("🚀 ~ file: action.js ~ line 8 ~ run ~ context", context)
+  console.log("🚀 ~ file: action.js ~ line 8 ~ run ~ context", context.payload.commits)
 	console.log("hello, wowrld!");
 }
 
